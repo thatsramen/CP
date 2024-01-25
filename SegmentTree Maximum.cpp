@@ -11,6 +11,12 @@ struct SegmentTree {
         build(a, 1, 0, sz);
     }
 
+    SegmentTree(int n) {
+        sz = 1;
+        while (sz < n) sz *= 2;
+        tre.assign(2 * sz, -IINF);
+    }
+
     void rcl(int x) {
         tre[x] = max(tre[2 * x], tre[2 * x + 1]);
     }

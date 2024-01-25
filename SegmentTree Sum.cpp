@@ -3,7 +3,7 @@ struct SegmentTree {
     vector<ll> tre;
     int sz;
     
-    SegmentTree(vector<int> &a) {
+    SegmentTree(vector<ll> &a) {
         int n = (int) a.size();
         sz = 1;
         while (sz < n) sz *= 2;
@@ -11,11 +11,17 @@ struct SegmentTree {
         build(a, 1, 0, sz);
     }
 
+    SegmentTree(int n) {
+        sz = 1;
+        while (sz < n) sz *= 2;
+        tre.assign(2 * sz, 0);
+    }
+
     void rcl(int x) {
         tre[x] = tre[2 * x] + tre[2 * x + 1];
     }
 
-    void build(vector<int> &a, int x, int lx, int rx) {
+    void build(vector<ll> &a, int x, int lx, int rx) {
         if (rx - lx == 1) {
             if (lx < a.size()) {
                 tre[x] = a[lx];
@@ -28,7 +34,7 @@ struct SegmentTree {
         rcl(x);
     }
 
-    void set(int i, int v, int x, int lx, int rx) {
+    void set(int i, ll v, int x, int lx, int rx) {
         if (rx - lx == 1) {
             tre[x] = v;
             return;
@@ -42,7 +48,7 @@ struct SegmentTree {
         rcl(x);
     }
 
-    void set(int i, int v) {
+    void set(int i, ll v) {
         set(i, v, 1, 0, sz);
     }
 
